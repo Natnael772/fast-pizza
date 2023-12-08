@@ -85,4 +85,31 @@ function CreateOrder() {
   );
 }
 
+export async function action({ request }) {
+  //handle post request with no js(handleSubmit), only react router(it looks like the way html works)
+  //without having to create states for the form datas
+
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  const errors = {};
+  console.log(!isValidPhone(data.phone));
+
+  if (!isValidPhone(data.phone))
+    errors.phone =
+      "Please give us your current phone number. We might need it to contact you.";
+
+  if (Object.keys(errors).length > 0) return errors;
+
+  const order = {
+    ...data,
+    cart: JSON.parse(data.cart),
+    priority: data.priority === "on",
+  };
+
+  const newOrder = await createOrder(order);
+
+  return redirect(`/order/${newOrder.id}`);
+}
+
 export default CreateOrder;

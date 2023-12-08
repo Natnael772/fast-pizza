@@ -10,8 +10,44 @@ import AppLayout from "./ui/AppLayout";
 import Error from "./ui/Error";
 
 // createBrowserRouter is used for data fetching/loading with react router
-const router = createBrowserRouter([]);
+const router = createBrowserRouter([
+  {
+    //Parent(layout) route
+    element: <AppLayout />,
 
+    //child(nested) routes of applayout..
+    //those cocmponents will be rendered inside applayout outlet component
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/menu",
+        element: <Menu />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/order/new",
+        element: <CreateOrder />,
+      },
+      {
+        path: "/order/:orderId",
+        element: <Order />,
+      },
+    ],
+  },
+]);
+
+// old way - we can't use it to load data or submit data to forms
+// <BrowserRouter>
+//     <Routes>
+//       <Route path="/" element={<Home />}></Route>
+//     </Routes>
+//   </BrowserRouter>
 function App() {
   return <RouterProvider router={router}> </RouterProvider>;
 }

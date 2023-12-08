@@ -37,12 +37,13 @@ function CreateOrder() {
   const isSubmitting = navigation.state === "submitting";
   console.log(navigation.state);
 
+  const formErrors = useActionData();
+
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
   return (
     // <Form method="POST" action="/order/new">
-
     <Form method="POST">
       <div>
         <h2>Ready to order? Let's go!</h2>
@@ -55,6 +56,7 @@ function CreateOrder() {
         <div>
           <input type="tel" name="phone" required />
         </div>
+        {formErrors?.phone && <p>{formErrors.phone}</p>}
       </div>
 
       <div>
@@ -88,9 +90,9 @@ function CreateOrder() {
 export async function action({ request }) {
   //handle post request with no js(handleSubmit), only react router(it looks like the way html works)
   //without having to create states for the form datas
-
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
+  console.log(data.cart);
 
   const errors = {};
   console.log(!isValidPhone(data.phone));

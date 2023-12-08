@@ -15,6 +15,9 @@ const router = createBrowserRouter([
     //Parent(layout) route
     element: <AppLayout />,
 
+    //error element to display when there is error (e.g fetching data or unknown path)
+    errorElement: <Error />,
+
     //child(nested) routes of applayout..
     //those cocmponents will be rendered inside applayout outlet component
     children: [
@@ -25,6 +28,8 @@ const router = createBrowserRouter([
       {
         path: "/menu",
         element: <Menu />,
+
+        errorElement: <Error />,
       },
       {
         path: "/cart",
@@ -37,6 +42,8 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <Order />,
+
+        errorElement: <Error />,
       },
     ],
   },

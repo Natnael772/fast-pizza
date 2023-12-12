@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import CreateUser from "../features/user/CreateUser";
+import Button from "./Button";
 
 // intailwind the classes with no prefix are mobile classes(mobile-first).
 // they apply  only if there in no class overriding them
@@ -8,6 +10,8 @@ import CreateUser from "../features/user/CreateUser";
 // sm: apply min-width: 640px
 
 function Home() {
+  const username = useSelector((state) => state.user?.username);
+  console.log(username);
   return (
     <div className="my-10 px-4 text-center sm:my-16">
       <h1 className="mb-4 text-xl font-semibold md:text-3xl">
@@ -17,7 +21,13 @@ function Home() {
           Straight out of the oven, straight to you.
         </span>
       </h1>
-      <CreateUser />
+      {!username ? (
+        <CreateUser />
+      ) : (
+        <Button type="primary" to="/menu">
+          Continue ordering, {username}
+        </Button>
+      )}
     </div>
   );
 }

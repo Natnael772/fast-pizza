@@ -15,7 +15,7 @@ export default function Button({ children, to, disabled, type }) {
   if (to)
     return (
       <Link className={styles[type]} to={to}>
-        Order pizzas
+        {children}
       </Link>
     );
   return (

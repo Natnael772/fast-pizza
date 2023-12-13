@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   username: "",
   status: "idle",
-  position: "",
+  position: {},
   address: "",
   error: "",
 };

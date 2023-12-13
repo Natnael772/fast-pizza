@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/helpers";
 import Button from "../../ui/Button";
+import { addItem, getCurrentQuantityById } from "../cart/cartSlice";
+import DeleteItem from "../cart/DeleteItem";
+import UpdateItemQuantity from "../cart/UpdateItemQuantity";
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  const currentQuantity = useSelector(getCurrentQuantityById(id));
+  const isInCart = currentQuantity > 0;
 
   return (
     // <Link to={`/cart/${id}`}>
@@ -25,6 +31,16 @@ function MenuItem({ pizza }) {
             <p className="text-stoe-500 text-sm font-medium uppercase">
               Sold out
             </p>
+          )}
+
+          {isInCart && (
+            <div className="flex items-center gap-3 md:gap-8">
+              <UpdateItemQuantity
+                pizzaId={id}
+                currentQuantity={currentQuantity}
+              />
+              <DeleteItem pizzaId={id} />
+            </div>
           )}
 
           <Button type="small">Add to cart</Button>

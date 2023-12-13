@@ -39,8 +39,12 @@ const cartSlice = createSlice({
   },
 });
 
-// function(useSelector parameter) to get total price of cart
+//function(useSelector parameter) to get total price of cart
 export const getTotalCartPrice = (state) =>
   state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+// useSelector parameter to get total quantity of cart items
+export const getTotalCartQuantity = (state) =>
+  state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
 
 export default cartSlice.reducer;

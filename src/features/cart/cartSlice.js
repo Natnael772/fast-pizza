@@ -11,6 +11,9 @@ const cartSlice = createSlice({
     addItem(state, action) {
       state.cart.push(action.payload);
     },
+    deleteItem(state, action) {
+      state.cart = state.cart.filter((item) => item.pizzaId != action.payload);
+    },
   },
 });
 

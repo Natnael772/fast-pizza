@@ -33,6 +33,9 @@ const cartSlice = createSlice({
 
       if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
     },
+    clearCart(state, action) {
+      state.cart = [];
+    },
   },
 });
 

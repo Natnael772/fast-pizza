@@ -7,7 +7,7 @@ function getPosition() {
   });
 }
 
-// Action creator function(asyncthunk) for fetching address based on given coordinates
+// Action creatorfunction (asyncthunk) for fetching address based on given coordinates
 export const fetchAddress = createAsyncThunk(
   "user/fetchAddress",
   async function () {
@@ -47,6 +47,20 @@ const userSlice = createSlice({
       state.username = action.payload;
     },
   },
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchAddress.pending, (state, action) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAddress.fulfilled, (state, action) => {
+        state.position = action.payload.position;
+        state.address = action.payload.address;
+        state.status = "idle";
+      })
+      .addCase(fetchAddress.rejected, (state, action) => {
+        state.status = "error";
+        state.error = action.error.message;
+      }),
 });
 
 // export action creator

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { formatCurrency } from "../../utils/helpers";
 import { deleteItem } from "./cartSlice";
 import DeleteItem from "./DeleteItem";
+import UpdateItemQuantity from "./UpdateItemQuantity";
 
 function CartItem({ item }) {
   const { pizzaId, name, quantity, totalPrice } = item;
@@ -17,7 +18,7 @@ function CartItem({ item }) {
         {/* <Button type="secondary" onClick={handleDeleteItemFromCart}>
           Delete
         </Button> */}
-
+        <UpdateItemQuantity pizzaId={pizzaId} currentQuantity={quantity} />
         <DeleteItem pizzaId={pizzaId} />
       </div>
     </li>

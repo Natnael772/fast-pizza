@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { formatCurrency } from "../../utils/helpers";
 import Button from "../../ui/Button";
 import { addItem, getCurrentQuantityById } from "../cart/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteItem from "../cart/DeleteItem";
 import UpdateItemQuantity from "../cart/UpdateItemQuantity";
 
@@ -10,6 +11,21 @@ function MenuItem({ pizza }) {
 
   const currentQuantity = useSelector(getCurrentQuantityById(id));
   const isInCart = currentQuantity > 0;
+
+  const dispatch = useDispatch();
+
+  function handleAddToCart() {
+    const newItem = {
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      // totalPrice : unitPrice*quantity
+      totalPrice: unitPrice,
+    };
+
+    dispatch(addItem(newItem));
+  }
 
   return (
     // <Link to={`/cart/${id}`}>
@@ -43,7 +59,11 @@ function MenuItem({ pizza }) {
             </div>
           )}
 
-          <Button type="small">Add to cart</Button>
+          {!soldOut && !isInCart && (
+            <Button type="small" onClick={handleAddToCart}>
+              Add to cart
+            </Button>
+          )}
         </div>
       </div>
     </li>
